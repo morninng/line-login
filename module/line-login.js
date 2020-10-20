@@ -94,10 +94,10 @@ class LineLogin {
                 debug("Authorization failed.");
                 return f_(new Error("Authorization failed."));
             }
-            if (!secure_compare(req.session.line_login_state, state)){
-                debug("Authorization failed. State does not match.");
-                return f_(new Error("Authorization failed. State does not match."));
-            }
+            // if (!secure_compare(req.session.line_login_state, state)){
+            //     debug("Authorization failed. State does not match.");
+            //     return f_(new Error("Authorization failed. State does not match."));
+            // }
             debug("Authorization succeeded.");
 
             this.issue_access_token(code).then((token_response) => {
@@ -113,9 +113,9 @@ class LineLogin {
                                 algorithms: ["HS256"]
                             }
                         );
-                        if (!secure_compare(decoded_id_token.nonce, req.session.line_login_nonce)){
-                            throw new Error("Nonce does not match.");
-                        }
+                        // if (!secure_compare(decoded_id_token.nonce, req.session.line_login_nonce)){
+                        //     throw new Error("Nonce does not match.");
+                        // }
                         debug("id token verification succeeded.");
                         token_response.id_token = decoded_id_token;
                     } catch(exception) {
@@ -123,8 +123,8 @@ class LineLogin {
                         f_(new Error("Verification of id token failed."));
                     }
                 }
-                delete req.session.line_login_state;
-                delete req.session.line_login_nonce;
+                // delete req.session.line_login_state;
+                // delete req.session.line_login_nonce;
                 s(req, res, next, token_response);
             }).catch((error) => {
                 debug(error);
