@@ -66,8 +66,10 @@ class LineLogin {
     */
     auth(){
         return (req, res, next) => {
-            let state = req.session.line_login_state = LineLogin._random();
-            let nonce = req.session.line_login_nonce = LineLogin._random();
+            // let state = req.session.line_login_state = LineLogin._random();
+            // let nonce = req.session.line_login_nonce = LineLogin._random();
+            let state = "dummy_state";
+            let nonce = "dummy_nonce"
             let url = this.make_auth_url(state, nonce);
             return res.redirect(url);
         }
