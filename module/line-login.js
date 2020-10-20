@@ -71,6 +71,7 @@ class LineLogin {
             let state = "dummy_state";
             let nonce = "dummy_nonce"
             let url = this.make_auth_url(state, nonce);
+            console.log("auth url", url);
             return res.redirect(url);
         }
     }
