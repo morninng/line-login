@@ -94,14 +94,14 @@ class LineLogin {
             const friendship_status_changed = req.query.friendship_status_changed;
 
             if (!code){
-                debug("Authorization failed.");
+                console.log("Authorization failed.");
                 return f_(new Error("Authorization failed."));
             }
             // if (!secure_compare(req.session.line_login_state, state)){
             //     debug("Authorization failed. State does not match.");
             //     return f_(new Error("Authorization failed. State does not match."));
             // }
-            debug("Authorization succeeded.");
+            console.log("Authorization succeeded.");
 
             this.issue_access_token(code).then((token_response) => {
                 if (this.verify_id_token && token_response.id_token){
@@ -119,10 +119,10 @@ class LineLogin {
                         // if (!secure_compare(decoded_id_token.nonce, req.session.line_login_nonce)){
                         //     throw new Error("Nonce does not match.");
                         // }
-                        debug("id token verification succeeded.");
+                        console.log("id token verification succeeded.");
                         token_response.id_token = decoded_id_token;
                     } catch(exception) {
-                        debug("id token verification failed.");
+                        console.log("id token verification failed.");
                         f_(new Error("Verification of id token failed."));
                     }
                 }
@@ -130,7 +130,7 @@ class LineLogin {
                 // delete req.session.line_login_nonce;
                 s(req, res, next, token_response);
             }).catch((error) => {
-                debug(error);
+                console.log(error);
                 f_(error);
             });
         }
