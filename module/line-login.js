@@ -90,8 +90,11 @@ class LineLogin {
                 else throw error;
             };
             const code = req.query.code;
+            console.log("code", code)
             const state = req.query.state;
+            console.log("state", state)
             const friendship_status_changed = req.query.friendship_status_changed;
+            console.log("friendship_status_changed", friendship_status_changed)
 
             if (!code){
                 console.log("Authorization failed.");
